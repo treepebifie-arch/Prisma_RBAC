@@ -1,5 +1,5 @@
 
-import { createUser, login } from '../services/userServices.js';
+import { createUser, login, verifyAccount, resendOTP } from '../services/userServices.js';
 
 export async function onBoardUser  (req, res, next) {
     try {
@@ -22,7 +22,6 @@ export async function loginUser (req, res, next) {
         res.status(200).json({
             success: true,
             message: "Login successful",
-            role: req.user.role,
             token
         });
         
@@ -30,3 +29,33 @@ export async function loginUser (req, res, next) {
         next(err);
     }
 };
+
+
+export async function verifyUserAccount (req, res, next) {
+    try {
+        const { email, otp } = req.body;
+        await verifyAccount(email, otp);
+        res.status(200).json({
+            success: true,
+            message: "Account verified successfully"
+        });
+    } catch (err) {
+        next(err);
+    }
+    
+};
+
+
+export async function resendUserOTP (req, res, next) {
+    try {
+        const { email } = req.body;
+        const otp = await resendOTP(email);
+        res.status(200).json({
+            success: true,
+            message: "OTP resent successfully",
+            otp
+        });
+    } catch (err) {
+        next(err);
+    }
+}

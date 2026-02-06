@@ -9,8 +9,8 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL,
     "isVerified" BOOLEAN NOT NULL DEFAULT false,
     "role" "Role" NOT NULL DEFAULT 'USER',
-    "otp" TEXT NOT NULL,
-    "otpExpiry" TIMESTAMP(3) NOT NULL,
+    "otp" TEXT,
+    "otpExpiry" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
